@@ -14,3 +14,5 @@ The Web API is used in order to open the score information up to other devices, 
 ## How to Start
 To start/stop the necessary scripts run the bash script ./board.sh start OR Run ./board.sh stop
 Run this via the crontab on @reboot to start all necessary scripts at once on state up.
+
+Note: You will need to sync your buttons by running the new_scan_wizard.py file within the fliclib-linux-hci directory once the device has booted. This should only need to happen once, and then the flic library will save the button information.

@@ -25,9 +25,9 @@ class RunText(MatrixBase):
     def run(self):
         offscreen_canvas = self.matrix.CreateFrameCanvas()
         font = graphics.Font()
-        font.LoadFont("/home/pi/pong/fonts/clR6x12.bdf")
+        font.LoadFont("fonts/clR6x12.bdf")
         textFont = graphics.Font()
-        textFont.LoadFont("/home/pi/pong/fonts/4x6.bdf")
+        textFont.LoadFont("fonts/4x6.bdf")
         textColor = graphics.Color(255, 255, 255)
         scores = get_score()
         player1Score = scores['player1Score']
@@ -58,7 +58,7 @@ class RunText(MatrixBase):
             offscreen_canvas.Clear()
 
             # Update score every half second
-            if scoreRefreshInteration % 10 == 0:
+            if scoreRefreshInteration % 5 == 0:
                 scores = get_score()
                 player1Score = scores['player1Score']
                 player2Score = scores['player2Score']
@@ -100,7 +100,9 @@ class RunText(MatrixBase):
                 offscreen_canvas.SetPixel(offscreen_canvas.width - 2, y, fill_r, fill_g, fill_b)
                 offscreen_canvas.SetPixel(offscreen_canvas.width - 3, y, fill_r, fill_g, fill_b)
 
-            time.sleep(0.05)
+            scoreRefreshInteration += 1  # increment the counter at the end of the loop
+
+            time.sleep(0.1)
             offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
 
 
