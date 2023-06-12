@@ -15,8 +15,6 @@ game = PingPongGame()
 
 def click_handler(channel, click_type, was_queued, time_diff):
 
-  print(click_type)
-
   if str(click_type) == "ClickType.ButtonSingleClick":
     if str(channel.bd_addr) == game.player1:
         increment_score('player1', game)
@@ -46,7 +44,6 @@ def got_button(bd_addr):
 	client.add_connection_channel(cc)
 
 def got_info(items):
-	print(items)
 	for bd_addr in items["bd_addr_of_verified_buttons"]:
 		got_button(bd_addr)
 

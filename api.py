@@ -25,7 +25,8 @@ def decrement_score(player):
 def get_score():
     return jsonify(
         player1Score=game.player1Score,
-        player2Score=game.player2Score
+        player2Score=game.player2Score,
+        serving=game.get_server()
     )
 
 if __name__ == '__main__':
