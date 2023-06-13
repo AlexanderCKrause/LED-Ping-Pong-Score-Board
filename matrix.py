@@ -1,5 +1,4 @@
 import time
-import fliclib
 from api_calls import *
 from matrixbase import MatrixBase
 from rgbmatrix import graphics
@@ -69,42 +68,49 @@ class RunText(MatrixBase):
                     fill_g = 160
                     fill_b = 165
 
-            if game.player1Score <= 9:
-                graphics.DrawText(offscreen_canvas, font, pos1_x, pos1_y, textColor, str(game.player1Score))
+            if game.gameStarted == False:
+                graphics.DrawText(offscreen_canvas, textFont, 7, 15, textColor, "Start")
+                graphics.DrawText(offscreen_canvas, textFont, 8, 25, player2Color, "Game")
+
+                # Server Arrow
+                graphics.DrawText(offscreen_canvas, textFont, servePosition_x, servePosition_y, fillColor, "-")
             else:
-                graphics.DrawText(offscreen_canvas, font, pos1_x_offset, pos1_y, textColor, str(game.player1Score))
+                if game.player1Score <= 9:
+                    graphics.DrawText(offscreen_canvas, font, pos1_x, pos1_y, textColor, str(game.player1Score))
+                else:
+                    graphics.DrawText(offscreen_canvas, font, pos1_x_offset, pos1_y, textColor, str(game.player1Score))
 
-            if game.player2Score <= 9:
-                graphics.DrawText(offscreen_canvas, font, pos2_x, pos2_y, player2Color, str(game.player2Score))
-            else:
-                graphics.DrawText(offscreen_canvas, font, pos2_x_offset, pos2_y, player2Color, str(game.player2Score))
-
-
-            graphics.DrawText(offscreen_canvas, textFont, 13, 11, textColor, "P1")
-            graphics.DrawText(offscreen_canvas, textFont, 13, 45, player2Color, "P2")
-
-            # Server Arrow
-            graphics.DrawText(offscreen_canvas, textFont, servePosition_x, servePosition_y, fillColor, "|")
+                if game.player2Score <= 9:
+                    graphics.DrawText(offscreen_canvas, font, pos2_x, pos2_y, player2Color, str(game.player2Score))
+                else:
+                    graphics.DrawText(offscreen_canvas, font, pos2_x_offset, pos2_y, player2Color, str(game.player2Score))
 
 
-            # Inner Fill
-            for x in range(0, offscreen_canvas.width):
-                offscreen_canvas.SetPixel(x, 0, fill_r, fill_g, fill_b)
-                offscreen_canvas.SetPixel(x, offscreen_canvas.height - 1, fill_r, fill_g, fill_b)
+                graphics.DrawText(offscreen_canvas, textFont, 13, 11, textColor, "P1")
+                graphics.DrawText(offscreen_canvas, textFont, 13, 45, player2Color, "P2")
 
-            for y in range(0, offscreen_canvas.height):
-                offscreen_canvas.SetPixel(0, y, fill_r, fill_g, fill_b)
-                offscreen_canvas.SetPixel(offscreen_canvas.width - 1, y, fill_r, fill_g, fill_b)
+                # Server Arrow
+                graphics.DrawText(offscreen_canvas, textFont, servePosition_x, servePosition_y, fillColor, "|")
 
-            for x in range(1, offscreen_canvas.width - 1):
-                offscreen_canvas.SetPixel(x, 1, fill_r, fill_g, fill_b)
-                offscreen_canvas.SetPixel(x, offscreen_canvas.height - 2, fill_r, fill_g, fill_b)
 
-            for y in range(1, offscreen_canvas.height -1):
-                offscreen_canvas.SetPixel(1, y, fill_r, fill_g, fill_b)
-                offscreen_canvas.SetPixel(2, y, fill_r, fill_g, fill_b)
-                offscreen_canvas.SetPixel(offscreen_canvas.width - 2, y, fill_r, fill_g, fill_b)
-                offscreen_canvas.SetPixel(offscreen_canvas.width - 3, y, fill_r, fill_g, fill_b)
+                # Inner Fill
+                for x in range(0, offscreen_canvas.width):
+                    offscreen_canvas.SetPixel(x, 0, fill_r, fill_g, fill_b)
+                    offscreen_canvas.SetPixel(x, offscreen_canvas.height - 1, fill_r, fill_g, fill_b)
+
+                for y in range(0, offscreen_canvas.height):
+                    offscreen_canvas.SetPixel(0, y, fill_r, fill_g, fill_b)
+                    offscreen_canvas.SetPixel(offscreen_canvas.width - 1, y, fill_r, fill_g, fill_b)
+
+                for x in range(1, offscreen_canvas.width - 1):
+                    offscreen_canvas.SetPixel(x, 1, fill_r, fill_g, fill_b)
+                    offscreen_canvas.SetPixel(x, offscreen_canvas.height - 2, fill_r, fill_g, fill_b)
+
+                for y in range(1, offscreen_canvas.height -1):
+                    offscreen_canvas.SetPixel(1, y, fill_r, fill_g, fill_b)
+                    offscreen_canvas.SetPixel(2, y, fill_r, fill_g, fill_b)
+                    offscreen_canvas.SetPixel(offscreen_canvas.width - 2, y, fill_r, fill_g, fill_b)
+                    offscreen_canvas.SetPixel(offscreen_canvas.width - 3, y, fill_r, fill_g, fill_b)
 
             scoreRefreshInteration += 1  # increment the counter at the end of the loop
 

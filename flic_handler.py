@@ -15,24 +15,29 @@ client = fliclib.FlicClient("localhost")
 def click_handler(channel, click_type, was_queued, time_diff):
 
   game = get_game_info()
+  print(game.gameStarted)
 
-  if str(click_type) == "ClickType.ButtonSingleClick":
-    if str(channel.bd_addr) == game.player1:
-        increment_score('player1', game)
-    elif str(channel.bd_addr) == game.player2:
-        increment_score('player2', game)
+  if game.gameStarted == False:
+      if str(click_type) == "ClickType.ButtonSingleClick":
+          start_game()
+  else:
+      if str(click_type) == "ClickType.ButtonSingleClick":
+        if str(channel.bd_addr) == game.player1:
+            increment_score('player1')
+        elif str(channel.bd_addr) == game.player2:
+            increment_score('player2')
 
-  if str(click_type) == "ClickType.ButtonDoubleClick":
-    if str(channel.bd_addr) == game.player1:
-        decrement_score('player1', game)
-    elif str(channel.bd_addr) == game.player2:
-        decrement_score('player2', game)
+      if str(click_type) == "ClickType.ButtonDoubleClick":
+        if str(channel.bd_addr) == game.player1:
+            decrement_score('player1')
+        elif str(channel.bd_addr) == game.player2:
+            decrement_score('player2')
 
-  if str(click_type) == "ClickType.ButtonHold":
-    if str(channel.bd_addr) == game.player1:
-        reset_score('player1', game)
-    elif str(channel.bd_addr) == game.player2:
-        reset_score('player2', game)
+      if str(click_type) == "ClickType.ButtonHold":
+        if str(channel.bd_addr) == game.player1:
+            reset_score('player1')
+        elif str(channel.bd_addr) == game.player2:
+            reset_score('player2')
 
 # Flick Button Event Handling
 def got_button(bd_addr):

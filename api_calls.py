@@ -1,7 +1,7 @@
 import requests
 from game import PingPongGame
 
-def increment_score(player, game):
+def increment_score(player):
     data = {}
     url = 'http://192.168.1.72:5000/increment_score/'+player
       
@@ -13,7 +13,7 @@ def increment_score(player, game):
     else:
         print("POST request failed. Status code:", response.status_code)
 
-def decrement_score(player, game):
+def decrement_score(player):
     data = {}
     url = 'http://192.168.1.72:5000/decrement_score/'+player
       
@@ -25,7 +25,31 @@ def decrement_score(player, game):
     else:
         print("POST request failed. Status code:", response.status_code)
 
-def reset_score(player, game):
+def end_game():
+    data = {}
+    url = 'http://192.168.1.72:5000/end_game/'
+      
+    response = requests.post(url, json=data)
+
+    if response.status_code == 200:
+        print("POST request was successful.")
+        print("Response:", response.json())
+    else:
+        print("POST request failed. Status code:", response.status_code)
+
+def start_game():
+    data = {}
+    url = 'http://192.168.1.72:5000/start_game/'
+      
+    response = requests.post(url, json=data)
+
+    if response.status_code == 200:
+        print("POST request was successful.")
+        print("Response:", response.json())
+    else:
+        print("POST request failed. Status code:", response.status_code)
+
+def reset_score(player):
     data = {}
     url = 'http://192.168.1.72:5000/reset_score/'+player
       
