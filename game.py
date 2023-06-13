@@ -44,6 +44,9 @@ class PingPongGame:
         elif player == "player2":
             self.player2Score = 0
 
+        if self.player1Score == 0 and self.player2Score == 0:
+            self.servingPlayer = "1"
+
     def to_dict(self):
         return {
             'player1Score': self.player1Score,

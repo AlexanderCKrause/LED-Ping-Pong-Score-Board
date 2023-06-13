@@ -11,9 +11,10 @@ from game import PingPongGame
 from api_calls import *
 
 client = fliclib.FlicClient("localhost")
-game = PingPongGame()
 
 def click_handler(channel, click_type, was_queued, time_diff):
+
+  game = get_game_info()
 
   if str(click_type) == "ClickType.ButtonSingleClick":
     if str(channel.bd_addr) == game.player1:
