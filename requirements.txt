@@ -1,1 +1,6 @@
 Flask
+socketio
+requests
+flask_socketio
+"python-socketio[client]"
+rgbmatrix

@@ -1,8 +1,10 @@
 import time
+import socketio
 from api_calls import *
 from matrixbase import MatrixBase
 from rgbmatrix import graphics
 from game import PingPongGame
+import threading
 
 # Matrix Color Values
 fillColor = graphics.Color(255, 255, 255)
@@ -11,7 +13,11 @@ fill_g = 255
 fill_b = 255
 player1Color =  graphics.Color(255, 255, 255)
 player2Color =  graphics.Color(2,160,165)
+game = get_game_info()
+sio = socketio.Client()
+c = threading.Condition()
 
+game = PingPongGame()
 
 class RunText(MatrixBase):
     def __init__(self, *args, **kwargs):
@@ -26,9 +32,10 @@ class RunText(MatrixBase):
         textFont = graphics.Font()
         textFont.LoadFont("fonts/4x6.bdf")
         textColor = graphics.Color(255, 255, 255)
+
+        # Get Global Game Obj
+        global game
         
-        # Create Game Object
-        game = PingPongGame()
         # Get initial game info from server
         game = get_game_info()
 
@@ -53,20 +60,18 @@ class RunText(MatrixBase):
         while True:
             offscreen_canvas.Clear()
 
-            # Update score every half second
-            if scoreRefreshInteration % 5 == 0:
-                game = get_game_info()
+            c.acquire()
 
-                if game.servingPlayer == "1":
-                    fillColor = player1Color
-                    fill_r = 255
-                    fill_g = 255
-                    fill_b = 255
-                else:
-                    fillColor = player2Color
-                    fill_r = 2
-                    fill_g = 160
-                    fill_b = 165
+            if game.servingPlayer == "1":
+                fillColor = player1Color
+                fill_r = 255
+                fill_g = 255
+                fill_b = 255
+            else:
+                fillColor = player2Color
+                fill_r = 2
+                fill_g = 160
+                fill_b = 165
 
             if game.gameStarted == False:
                 graphics.DrawText(offscreen_canvas, textFont, 7, 15, textColor, "Start")
@@ -114,13 +119,49 @@ class RunText(MatrixBase):
 
             scoreRefreshInteration += 1  # increment the counter at the end of the loop
 
+            c.notify_all()
+            c.release()
+
             time.sleep(0.1)
             offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
 
 
-def run():
-    run_text = RunText()
-    if (not run_text.process()):
-        run_text.print_help()
+class Thread_A(threading.Thread):
+    def __init__(self, name):
+        threading.Thread.__init__(self)
+        self.name = name
 
-run()
+    def run(self):
+        run_text = RunText()
+        if (not run_text.process()):
+            run_text.print_help()
+
+class Thread_B(threading.Thread):
+    def __init__(self, name):
+        threading.Thread.__init__(self)
+        self.name = name
+        self.sio = socketio.Client()
+        self.sio.on('update', self.handle_update)
+
+    def connect_to_socketio(self):
+        self.sio.connect('http://192.168.1.72:5000')
+        self.sio.wait()
+
+    def handle_update(self, data):
+        print('Received update: ', data)
+        global game
+        game = get_game_info()
+
+    def run(self):
+        # Connect to Socket.IO server in a separate thread
+        threading.Thread(target=self.connect_to_socketio).start()
+
+
+a = Thread_A("pixel_thread")
+b = Thread_B("socket_thread")
+
+b.start()
+a.start()
+
+a.join()
+b.join()
