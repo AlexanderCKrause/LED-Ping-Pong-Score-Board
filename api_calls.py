@@ -1,4 +1,5 @@
 import requests
+from game import PingPongGame
 
 def increment_score(player, game):
     data = {}
@@ -6,7 +7,6 @@ def increment_score(player, game):
       
     response = requests.post(url, json=data)
 
-    # Check the response
     if response.status_code == 200:
         print("POST request was successful.")
         print("Response:", response.json())
@@ -19,7 +19,6 @@ def decrement_score(player, game):
       
     response = requests.post(url, json=data)
 
-    # Check the response
     if response.status_code == 200:
         print("POST request was successful.")
         print("Response:", response.json())
@@ -32,22 +31,24 @@ def reset_score(player, game):
       
     response = requests.post(url, json=data)
 
-    # Check the response
     if response.status_code == 200:
         print("GET request was successful.")
         return response.json()
     else:
         print("GET request failed. Status code:", response.status_code)
 
-def get_score():
+def get_game_info():
     data = {}
-    url = 'http://192.168.1.72:5000/get_score'
+    url = 'http://192.168.1.72:5000/get_game_info'
       
     response = requests.get(url, json=data)
 
-    # Check the response
     if response.status_code == 200:
         print("GET request was successful.")
-        return response.json()
+        game_data = response.json()
+        print("Game data:", game_data)
+        game = PingPongGame.from_dict(game_data)
+        return game
+
     else:
         print("GET request failed. Status code:", response.status_code)

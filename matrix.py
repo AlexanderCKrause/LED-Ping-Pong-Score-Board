@@ -5,13 +5,6 @@ from matrixbase import MatrixBase
 from rgbmatrix import graphics
 from game import PingPongGame
 
-
-player1 = "80:e4:da:72:59:b6"
-player2 = "80:e4:da:72:90:ae"
-serverDirection = "right"
-serverSet = 1
-
-
 # Matrix Color Values
 fillColor = graphics.Color(255, 255, 255)
 fill_r = 255
@@ -35,17 +28,10 @@ class RunText(MatrixBase):
         textFont.LoadFont("fonts/4x6.bdf")
         textColor = graphics.Color(255, 255, 255)
         
-        # Get initial score from server
-        scores = get_score()
-        
         # Create Game Object
         game = PingPongGame()
-
-        # Populate Game Object Properties
-        game.player1Score = scores['player1Score']
-        game.player2Score = scores['player2Score']
-
-        redText = graphics.Color(255, 38, 0)
+        # Get initial game info from server
+        game = get_game_info()
 
         largeNumberOffest = 4
 
@@ -70,29 +56,9 @@ class RunText(MatrixBase):
 
             # Update score every half second
             if scoreRefreshInteration % 5 == 0:
-                scores = get_score()
-                game.player1Score = scores['player1Score']
-                game.player2Score = scores['player2Score']
+                game = get_game_info()
 
-                # Determine Server and Border Color
-  
-                total = (game.player1Score + game.player2Score)
-                num_str = repr(total)
-                last_digit_str = num_str[-1]
-                last_digit = int(last_digit_str)
-
-                if last_digit < 5:
-                    if serverSet == 1:
-                        game.serverDirection = "right"
-                    elif serverSet == 2:
-                        game.serverDirection = "left"
-                else:
-                    if serverSet == 1:
-                        game.serverDirection = "left"
-                    elif serverSet == 2:
-                        game.serverDirection = "right"
-
-                if game.serverDirection == "right":
+                if game.servingPlayer == "1":
                     fillColor = player1Color
                     fill_r = 255
                     fill_g = 255

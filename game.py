@@ -1,11 +1,11 @@
 class PingPongGame:
-    def __init__(self):
+    def __init__(self, player1Score=0, player2Score=0, serverSet=1, servingPlayer='1'):
         self.player1 = "80:e4:da:7b:34:e8"
         self.player2 = "80:e4:da:7b:2e:fc"
-        self.player1Score = 0
-        self.player2Score = 0
-        self.servingPlayer = "1"
-        self.serverSet = 1
+        self.player1Score = player1Score
+        self.player2Score = player2Score
+        self.serverSet = serverSet
+        self.servingPlayer = servingPlayer
 
     def get_server(self):
         
@@ -43,3 +43,15 @@ class PingPongGame:
             self.player1Score = 0
         elif player == "player2":
             self.player2Score = 0
+
+    def to_dict(self):
+        return {
+            'player1Score': self.player1Score,
+            'player2Score': self.player2Score,
+            'servingPlayer': self.servingPlayer,
+            'serverSet': self.serverSet
+        }
+
+    @classmethod
+    def from_dict(cls, data):
+        return cls(**data)

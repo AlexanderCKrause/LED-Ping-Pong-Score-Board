@@ -1,5 +1,4 @@
 from flask import Flask, jsonify
-import threading
 from game import PingPongGame
 
 
@@ -14,20 +13,19 @@ def reset_score(player):
 @app.route('/increment_score/<player>', methods=['POST'])
 def increment_score(player):
     game.increment_score(player)
+    game.get_server()
     return jsonify(success=True)
 
 @app.route('/decrement_score/<player>', methods=['POST'])
 def decrement_score(player):
     game.decrement_score(player)
+    game.get_server()
     return jsonify(success=True)
 
-@app.route('/get_score', methods=['GET'])
-def get_score():
-    return jsonify(
-        player1Score=game.player1Score,
-        player2Score=game.player2Score,
-        serving=game.get_server()
-    )
+@app.route('/get_game_info', methods=['GET'])
+def get_game_info():
+    return jsonify(game.to_dict())
+
 
 if __name__ == '__main__':
     app.run(host='192.168.1.72', port=5000)
