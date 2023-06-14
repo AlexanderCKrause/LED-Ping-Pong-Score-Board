@@ -14,7 +14,10 @@ def click_handler(channel, click_type, was_queued, time_diff):
 
     if game.gameStarted == False:
         if str(click_type) == "ClickType.ButtonSingleClick":
-            start_game()
+            start_game('doubles')
+
+        if str(click_type) == "ClickType.ButtonDoubleClick":
+            start_game('triples')
     else:
         if str(click_type) == "ClickType.ButtonSingleClick":
             if str(channel.bd_addr) == game.player1:

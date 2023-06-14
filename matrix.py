@@ -74,11 +74,15 @@ class RunText(MatrixBase):
                 fill_b = 165
 
             if game.gameStarted == False:
-                graphics.DrawText(offscreen_canvas, textFont, 7, 15, textColor, "Start")
-                graphics.DrawText(offscreen_canvas, textFont, 8, 25, player2Color, "Game")
+                graphics.DrawText(offscreen_canvas, textFont, 7, 10, textColor, "Start")
+                graphics.DrawText(offscreen_canvas, textFont, 8, 20, player2Color, "Game")
 
-                # Server Arrow
-                graphics.DrawText(offscreen_canvas, textFont, servePosition_x, servePosition_y, fillColor, "-")
+                graphics.DrawText(offscreen_canvas, textFont, 13, 30, textColor, "1")
+                graphics.DrawText(offscreen_canvas, textFont, 3, 40, textColor, "Doubles")
+
+                graphics.DrawText(offscreen_canvas, textFont, 13, 50, textColor, "2")
+                graphics.DrawText(offscreen_canvas, textFont, 3, 60, textColor, "Triples")
+
             else:
                 if game.player1Score <= 9:
                     graphics.DrawText(offscreen_canvas, font, pos1_x, pos1_y, textColor, str(game.player1Score))

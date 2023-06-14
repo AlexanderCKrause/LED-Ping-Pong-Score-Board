@@ -23,9 +23,9 @@ def decrement_score(player):
     game.get_server()
     return jsonify(success=True)
 
-@app.route('/start_game/', methods=['POST'])
-def start_game():
-    game.start_game()
+@app.route('/start_game/<game_type>', methods=['POST'])
+def start_game(game_type):
+    game.start_game(game_type)
     return jsonify(success=True)
 
 @app.route('/end_game/', methods=['POST'])

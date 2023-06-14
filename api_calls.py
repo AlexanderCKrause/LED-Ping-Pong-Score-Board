@@ -37,9 +37,9 @@ def end_game():
     else:
         print("POST request failed. Status code:", response.status_code)
 
-def start_game():
+def start_game(game_type = 'doubles'):
     data = {}
-    url = 'http://192.168.1.72:5000/start_game/'
+    url = 'http://192.168.1.72:5000/start_game/' + game_type
       
     response = requests.post(url, json=data)
 

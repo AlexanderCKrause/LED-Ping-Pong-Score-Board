@@ -1,5 +1,5 @@
 class PingPongGame:
-    def __init__(self, player1Score=0, player2Score=0, serverSet=1, servingPlayer='1', gameStarted=False):
+    def __init__(self, player1Score=0, player2Score=0, serverSet=1, servingPlayer='1', gameStarted=False, gameType=''):
         self.player1 = "80:e4:da:7b:34:e8"
         self.player2 = "80:e4:da:7b:2e:fc"
         self.player1Score = player1Score
@@ -7,6 +7,7 @@ class PingPongGame:
         self.serverSet = serverSet
         self.servingPlayer = servingPlayer
         self.gameStarted = gameStarted
+        self.gameType = gameType
 
     def get_server(self):
         
@@ -39,8 +40,9 @@ class PingPongGame:
         elif player == "player2":
             self.player2Score -= 1
 
-    def start_game(self):
+    def start_game(self, start_game):
         self.gameStarted = True
+        self.gameType = start_game
 
     def end_game(self):
         self.servingPlayer = "1" # Reset Server
@@ -61,7 +63,8 @@ class PingPongGame:
             'player2Score': self.player2Score,
             'servingPlayer': self.servingPlayer,
             'serverSet': self.serverSet,
-            'gameStarted': self.gameStarted
+            'gameStarted': self.gameStarted,
+            'gameType': self.gameType
         }
 
     @classmethod
