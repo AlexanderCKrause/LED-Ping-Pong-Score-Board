@@ -3,7 +3,7 @@ from game import PingPongGame
 
 def increment_score(player):
     data = {}
-    url = 'http://192.168.1.72:5000/increment_score/'+player
+    url = 'http://192.168.1.28:5000/increment_score/'+player
       
     response = requests.post(url, json=data)
 
@@ -15,7 +15,7 @@ def increment_score(player):
 
 def decrement_score(player):
     data = {}
-    url = 'http://192.168.1.72:5000/decrement_score/'+player
+    url = 'http://192.168.1.28:5000/decrement_score/'+player
       
     response = requests.post(url, json=data)
 
@@ -27,7 +27,7 @@ def decrement_score(player):
 
 def end_game():
     data = {}
-    url = 'http://192.168.1.72:5000/end_game/'
+    url = 'http://192.168.1.28:5000/end_game/'
       
     response = requests.post(url, json=data)
 
@@ -39,7 +39,7 @@ def end_game():
 
 def start_game(game_type = 'doubles'):
     data = {}
-    url = 'http://192.168.1.72:5000/start_game/' + game_type
+    url = 'http://192.168.1.28:5000/start_game/' + game_type
       
     response = requests.post(url, json=data)
 
@@ -51,7 +51,7 @@ def start_game(game_type = 'doubles'):
 
 def reset_score(player):
     data = {}
-    url = 'http://192.168.1.72:5000/reset_score/'+player
+    url = 'http://192.168.1.28:5000/reset_score/'+player
       
     response = requests.post(url, json=data)
 
@@ -63,7 +63,7 @@ def reset_score(player):
 
 def get_game_info():
     data = {}
-    url = 'http://192.168.1.72:5000/get_game_info'
+    url = 'http://192.168.1.28:5000/get_game_info'
       
     response = requests.get(url, json=data)
 

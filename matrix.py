@@ -148,7 +148,7 @@ class Thread_B(threading.Thread):
         self.sio.on('update', self.handle_update)
 
     def connect_to_socketio(self):
-        self.sio.connect('http://192.168.1.72:5000')
+        self.sio.connect('http://192.168.1.28:5000')
         self.sio.wait()
 
     def handle_update(self, data):
