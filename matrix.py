@@ -24,7 +24,7 @@ class RunText(MatrixBase):
         super(RunText, self).__init__(*args, **kwargs)
 
     def run(self):
-        
+
         # Setup Font and Colors for Matrix
         offscreen_canvas = self.matrix.CreateFrameCanvas()
         font = graphics.Font()
@@ -35,7 +35,7 @@ class RunText(MatrixBase):
 
         # Get Global Game Obj
         global game
-        
+
         # Get initial game info from server
         game = get_game_info()
 
@@ -148,7 +148,7 @@ class Thread_B(threading.Thread):
         self.sio.on('update', self.handle_update)
 
     def connect_to_socketio(self):
-        self.sio.connect('http://192.168.1.28:5000')
+        self.sio.connect('http://192.168.1.45:5000')
         self.sio.wait()
 
     def handle_update(self, data):

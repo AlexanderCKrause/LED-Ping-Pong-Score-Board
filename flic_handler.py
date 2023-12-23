@@ -5,7 +5,7 @@ from game import PingPongGame
 from api_calls import *
 
 sio = socketio.Client()
-sio.connect('http://192.168.1.28:5000')  # Connect to server
+sio.connect('http://192.168.1.45:5000')  # Connect to server
 
 client = fliclib.FlicClient("localhost")
 

@@ -1,16 +1,18 @@
 class PingPongGame:
-    def __init__(self, player1Score=0, player2Score=0, serverSet=1, servingPlayer='1', gameStarted=False, gameType=''):
+    def __init__(self, player1Score=0, player2Score=0, player3Score=0, serverSet=1, servingPlayer='1', gameStarted=False, gameType=''):
         self.player1 = "80:e4:da:7b:34:e8"
         self.player2 = "80:e4:da:7b:2e:fc"
+        self.player3 = "80:e4:da:7b:2f:19"
         self.player1Score = player1Score
         self.player2Score = player2Score
+        self.player3Score = player3Score
         self.serverSet = serverSet
         self.servingPlayer = servingPlayer
         self.gameStarted = gameStarted
         self.gameType = gameType
 
     def get_server(self):
-        
+
         total = (self.player1Score + self.player2Score)
         num_str = repr(total)
         last_digit_str = num_str[-1]
@@ -33,12 +35,16 @@ class PingPongGame:
             self.player1Score += 1
         elif player == "player2":
             self.player2Score += 1
+        elif player == "player3":
+            self.player3Score += 1
 
     def decrement_score(self, player):
         if player == "player1":
             self.player1Score -= 1
         elif player == "player2":
             self.player2Score -= 1
+        elif player == "player3":
+            self.player3Score -= 1
 
     def start_game(self, start_game):
         self.gameStarted = True
@@ -53,14 +59,17 @@ class PingPongGame:
             self.player1Score = 0
         elif player == "player2":
             self.player2Score = 0
+        elif player == "player3":
+            self.player3Score = 0
 
-        if self.player1Score == 0 and self.player2Score == 0:
+        if self.player1Score == 0 and self.player2Score == 0 and self.player3Score == 0:
             self.end_game()
 
     def to_dict(self):
         return {
             'player1Score': self.player1Score,
             'player2Score': self.player2Score,
+            'player3Score': self.player3Score,
             'servingPlayer': self.servingPlayer,
             'serverSet': self.serverSet,
             'gameStarted': self.gameStarted,
