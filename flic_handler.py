@@ -24,18 +24,24 @@ def click_handler(channel, click_type, was_queued, time_diff):
                 increment_score('player1')
             elif str(channel.bd_addr) == game.player2:
                 increment_score('player2')
+            elif str(channel.bd_addr) == game.player3:
+                increment_score('player3')
 
         if str(click_type) == "ClickType.ButtonDoubleClick":
             if str(channel.bd_addr) == game.player1:
                 decrement_score('player1')
             elif str(channel.bd_addr) == game.player2:
                 decrement_score('player2')
+            elif str(channel.bd_addr) == game.player3:
+                decrement_score('player3')
 
         if str(click_type) == "ClickType.ButtonHold":
             if str(channel.bd_addr) == game.player1:
                 reset_score('player1')
             elif str(channel.bd_addr) == game.player2:
                 reset_score('player2')
+            elif str(channel.bd_addr) == game.player3:
+                reset_score('player3')
 
     # Send the event to the server
     event = {"type": str(click_type), "address": str(channel.bd_addr)}
